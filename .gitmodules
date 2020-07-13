@@ -1,0 +1,4 @@
+[submodule "asm15"]
+	path = asm-1.5
+	url = git@github.com:nan-yu/anthos-service-mesh-packages.git
+	branch = release-1.5-asm
