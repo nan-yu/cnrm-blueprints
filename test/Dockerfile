@@ -1,22 +1,13 @@
-FROM debian:buster
+FROM alpine:3.11
+RUN apk update && apk upgrade && \
+    apk add --no-cache git less vim curl man diffutils python3 py3-yaml bash openssh docker-cli && \
+    rm -rf /var/lib/apt/lists/* && \
+    rm /var/cache/apk/*
 
-#RUN apt-get update && apt-get install --yes python3 && apt-get clean
+RUN curl https://storage.googleapis.com/kpt-dev/latest/linux_amd64/kpt -o /usr/local/bin/kpt
+RUN chmod +x /usr/local/bin/kpt
 
-RUN apt-get update
-RUN apt-get install --yes curl
-RUN apt-get install --yes python3 python3-nbformat python3-nbconvert python3-ipykernel
-RUN apt-get install --yes python3-requests python3-xmltodict python3-yaml
-RUN apt-get install --yes jupyter-core jupyter-nbconvert
+ADD lib.py /lib.py
+ADD e2e-test.py /e2e-test.py
 
-# kpt requires git
-RUN apt-get install --yes git vim
-
-ADD jupyter /jupyter
-ADD lib/ /lib
-ADD ssh/ /root/.ssh
-
-ADD run.py /run.py
-
-ENTRYPOINT [ "/run.py" ]
-
-
+ENTRYPOINT ["python3", "/e2e-test.py"]
