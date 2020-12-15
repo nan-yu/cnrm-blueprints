@@ -1,0 +1,6 @@
+# action.yml
+name: 'Kpt function blueprint qualification action'
+description: 'The qualification action for the Kpt function blueprints'
+runs:
+  using: 'docker'
+  image: 'Dockerfile'

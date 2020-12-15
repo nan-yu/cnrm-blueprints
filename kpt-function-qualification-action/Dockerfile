@@ -7,7 +7,6 @@ RUN apk update && apk upgrade && \
 RUN curl https://storage.googleapis.com/kpt-dev/latest/linux_amd64/kpt -o /usr/local/bin/kpt
 RUN chmod +x /usr/local/bin/kpt
 
-ADD lib.py /lib.py
-ADD e2e-test.py /e2e-test.py
+COPY e2e/ /e2e/
 
-ENTRYPOINT ["python3", "/e2e-test.py"]
+ENTRYPOINT ["python3", "/e2e/run.py"]
